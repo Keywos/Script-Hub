@@ -11,7 +11,7 @@ const html = `
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon.png" />
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon-dark.png">
     <!--  <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">-->
-    <link rel="stylesheet" type="text/css" href="assets/sub.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/sub.css"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <title>Script Hub</title>
   </head>
