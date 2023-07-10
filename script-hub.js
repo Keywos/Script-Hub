@@ -6,498 +6,495 @@ const html = `
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="icon" type="image/png"
-    href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon.png" />
-  <link rel="apple-touch-icon"
-    href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon-dark.png">
-  <!--  <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">-->
-  <!-- <link rel="stylesheet" type="text/css" href="sub.css"/> -->
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>Script Hub</title>
-</head>
-
-<body style="margin-bottom: 160px;">
-  <script type="importmap">
-      {
-    "imports": {
-      "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-    }
-  }
-</script>
-
-  <style>
-    /* ::backdrop, */
-    :root {
-      --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
-        "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
-        "Helvetica Neue", sans-serif;
-      --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-      --standard-border-radius: 5px;
-      --bg: #eef1f5;
-      --accent-bg: #d8e3f17a;
-      --text: #484848;
-      --text-light: #585858;
-      --border: #dadce7;
-      --accent: #5c88c9;
-      --code: #af5050;
-      --preformatted: #272727;
-      --marked: #ffdd33;
-      --disabled: #efefef;
-    }
-
-    @media (prefers-color-scheme: dark) {
-
-      ::backdrop,
-      :root {
-        color-scheme: dark;
-        --bg: #1a1a1c;
-        --accent-bg: #333339;
-        --text: #d3cdcd;
-        --text-light: #ababab;
-        --accent: #9093ce;
-        --code: #ba8a6d;
-        --preformatted: #ccc;
-        --disabled: #111;
-        --border: #54566692;
-      }
-
-      img,
-      video {
-        opacity: 0.8;
-      }
-    }
-
-    *,
-    ::after,
-    ::before {
-      box-sizing: border-box;
-      text-decoration: none;
-    }
-
-    input,
-    progress,
-    select,
-    textarea {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-
-    }
-
-    html {
-      font-family: var(--sans-font);
-      scroll-behavior: smooth;
-    }
-
-    body {
-      color: var(--text);
-      background-color: var(--bg);
-      font-size: 1.05rem;
-      line-height: 1.5;
-      display: grid;
-      grid-template-columns: 1fr min(45rem, 90%) 1fr;
-      margin: 0;
-    }
-
-    body>* {
-      grid-column: 2;
-    }
-
-    body>header {
-      background-color: var(--accent-bg);
-      border-bottom: 1px solid var(--border);
-      text-align: center;
-      padding: 0 0.5rem 2rem 0.5rem;
-      grid-column: 1/-1;
-    }
-
-    body>header h1 {
-      max-width: 1200px;
-      margin: 1rem auto;
-    }
-
-    body>header p {
-      max-width: 40rem;
-      margin: 1rem auto;
-    }
-
-    main {
-      padding-top: 1.5rem;
-    }
-
-    body>footer {
-      margin-top: 4rem;
-      padding: 2rem 1rem 1.5rem 1rem;
-      color: var(--text-light);
-      font-size: 0.9rem;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-
-    h1 {
-      font-size: 3rem;
-    }
-
-    h2 {
-      font-size: 2.6rem;
-      margin-top: 3rem;
-    }
-
-    h3 {
-      font-size: 2rem;
-      margin-top: 3rem;
-    }
-
-    h4 {
-      font-size: 1.44rem;
-    }
-
-    h5 {
-      font-size: 1.15rem;
-    }
-
-    h6 {
-      font-size: 0.96rem;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
-      overflow-wrap: break-word;
-    }
-
-    h1,
-    h2,
-    h3 {
-      line-height: 1.1;
-    }
-
-    @media only screen and (max-width: 720px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      h2 {
-        font-size: 2.1rem;
-      }
-
-      h3 {
-        font-size: 1.75rem;
-      }
-
-      h4 {
-        font-size: 1.25rem;
-      }
-    }
-
-    a,
-    a:visited {
-      color: var(--accent);
-    }
-
-    a:hover {
-      text-decoration: none;
-    }
-
-    [role="button"],
-    button,
-    input[type="button"],
-    input[type="reset"],
-    input[type="submit"],
-    label[type="button"] {
-      border: none;
-      border-radius: var(--standard-border-radius);
-      background-color: var(--accent);
-      font-size: 1rem;
-      color: var(--bg);
-      padding: 0.7rem 0.9rem;
-      margin: 0.5rem 0;
-      font-family: inherit;
-    }
-
-    [role="button"][aria-disabled="true"],
-    button[disabled],
-    input[type="button"][disabled],
-    input[type="checkbox"][disabled],
-    input[type="radio"][disabled],
-    input[type="reset"][disabled],
-    input[type="submit"][disabled],
-    select[disabled] {
-      cursor: not-allowed;
-    }
-
-    button[disabled],
-    input:disabled,
-    select:disabled,
-    textarea:disabled {
-      cursor: not-allowed;
-      background-color: var(--disabled);
-      color: var(--text-light);
-    }
-
-    input[type="range"] {
-      padding: 0;
-    }
-
-    abbr[title] {
-      cursor: help;
-      text-decoration-line: underline;
-      text-decoration-style: dotted;
-    }
-
-    [role="button"]:not([aria-disabled="true"]):hover,
-    button:enabled:hover,
-    input[type="button"]:enabled:hover,
-    input[type="reset"]:enabled:hover,
-    input[type="submit"]:enabled:hover,
-    label[type="button"]:hover {
-      filter: brightness(1.4);
-      cursor: pointer;
-    }
-
-    button:focus-visible:where( :enabled,
-      [role="button"]:not([aria-disabled="true"])),
-    input:enabled:focus-visible:where([type="submit"],
-      [type="reset"],
-      [type="button"]) {
-      outline: 2px solid var(--accent);
-      outline-offset: 1px;
-    }
-
-    header>nav {
-      font-size: 1rem;
-      line-height: 2;
-      padding: 1rem 0 0 0;
-    }
-
-    header>nav ol,
-    header>nav ul {
-      align-content: space-around;
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    header>nav ol li,
-    header>nav ul li {
-      display: inline-block;
-    }
-
-    header>nav a,
-    header>nav a:visited {
-      margin: 0 0.5rem 1rem 0.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--standard-border-radius);
-      color: var(--text);
-      display: inline-block;
-      padding: 0.1rem 1rem;
-      text-decoration: none;
-    }
-
-    header>nav a.current,
-    header>nav a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      cursor: pointer;
-    }
-
-    @media only screen and (max-width: 720px) {
-      header>nav a {
-        border: none;
-        padding: 0;
-        text-decoration: underline;
-        line-height: 1;
-      }
-    }
-
-    aside,
-    details,
-    pre,
-    progress {
-      background-color: var(--accent-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--standard-border-radius);
-      margin-bottom: 1rem;
-    }
-
-    aside {
-      font-size: 1rem;
-      width: 30%;
-      padding: 0 15px;
-      margin-inline-start: 15px;
-      float: right;
-    }
-
-    [dir="rtl"] aside {
-      float: left;
-    }
-
-    @media only screen and (max-width: 720px) {
-      aside {
-        width: 100%;
-        float: none;
-        margin-inline-start: 0;
-      }
-    }
-
-    article,
-    dialog,
-    fieldset {
-      border: 1px solid var(--border);
-      padding: 1rem;
-      border-radius: var(--standard-border-radius);
-      margin-bottom: 1rem;
-    }
-
-    article h2:first-child,
-    section h2:first-child {
-      margin-top: 1rem;
-    }
-
-    section {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 2rem 1rem;
-      margin: 3rem 0;
-    }
-
-    section+section,
-    section:first-child {
-      border-top: 0;
-      padding-top: 0;
-    }
-
-    section:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    details {
-      padding: 0.7rem 1rem;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 700;
-      padding: 0.7rem 1rem;
-      margin: -0.7rem -1rem;
-      word-break: break-all;
-    }
-
-    details[open]>summary+* {
-      margin-top: 0;
-    }
-
-    details[open]>summary {
-      margin-bottom: 0.5rem;
-    }
-
-    details[open]> :last-child {
-      margin-bottom: 0;
-    }
-
-    table {
-      border-collapse: collapse;
-      margin: 1.5rem 0;
-    }
-
-    td,
-    th {
-      border: 1px solid var(--border);
-      text-align: start;
-      padding: 0.5rem;
-    }
-
-    th {
-      background-color: var(--accent-bg);
-      font-weight: 700;
-    }
-
-    tr:nth-child(even) {
-      background-color: var(--accent-bg);
-    }
-
-    table caption {
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    input,
-    select,
-    textarea {
-      font-size: inherit;
-      font-family: inherit;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      color: var(--text);
-      background-color: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: var(--standard-border-radius);
-      box-shadow: none;
-      max-width: 100%;
-      display: inline-block;
-
-    }
-
-    label {
-      display: block;
-    }
-
-    textarea:not([cols]) {
-      width: 100%;
-    }
-
-    select:not([multiple]) {
-      background-image: linear-gradient(45deg, transparent 49%, var(--text) 51%),
-        linear-gradient(135deg, var(--text) 51%, transparent 49%);
-      background-position: calc(100% - 15px), calc(100% - 10px);
-      background-size: 5px 5px, 5px 5px;
-      background-repeat: no-repeat;
-      padding-inline-end: 25px;
-    }
-
-    [dir="rtl"] select:not([multiple]) {
-      background-position: 10px, 15px;
-    }
-
-    input[type="checkbox"],
-    /* input[type="radio"] {
-    margin-top: 12px;
-    vertical-align: middle; 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon.png" />
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon-dark.png">
     
+    <!--  <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">-->
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>Script Hub</title>
+    <style>
+    /* Global variables. */
+:root {
+  /* Set sans-serif & mono fonts */
+  --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
+    "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
+    "Helvetica Neue", sans-serif;
+  --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  --standard-border-radius: 5px;
+
+  /* Default (light) theme */
+  --bg: #eef1f5;
+  --accent-bg: #d8e3f17a;
+  --text: #484848;
+  --text-light: #585858;
+  --border: #dadce7;
+  --accent: #5c88c9;
+  --code: #af5050;
+  --preformatted: #272727;
+  --marked: #ffdd33;
+  --disabled: #efefef;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  ::backdrop,
+  :root {
+    color-scheme: dark;
+    --bg: #1a1a1c;
+    --accent-bg: #333339;
+    --text: #d3cdcd;
+    --text-light: #ababab;
+    --accent: #9093ce;
+    --code: #ba8a6d;
+    --preformatted: #ccc;
+    --disabled: #111;
+    --border: #54566692;
+  }
+  /* Add a bit of transparency so light media isn't so glaring in dark mode */
+  img,
+  video {
+    opacity: 0.8;
+  }
+}
+
+/* Reset box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+/* Reset default appearance */
+textarea,
+select,
+input,
+progress {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+html {
+  /* Set the font globally */
+  font-family: var(--sans-font);
+  scroll-behavior: smooth;
+}
+
+/* Make the body a nice central block */
+body {
+  color: var(--text);
+  background-color: var(--bg);
+  font-size: 1.15rem;
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 1fr min(45rem, 90%) 1fr;
+  margin: 0;
+}
+body > * {
+  grid-column: 2;
+}
+
+/* Make the header bg full width, but the content inline with body */
+body > header {
+  background-color: var(--accent-bg);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  padding: 0 0.5rem 2rem 0.5rem;
+  grid-column: 1 / -1;
+}
+
+body > header h1 {
+  max-width: 1200px;
+  margin: 1rem auto;
+}
+
+body > header p {
+  max-width: 40rem;
+  margin: 1rem auto;
+}
+
+/* Add a little padding to ensure spacing is correct between content and header > nav */
+main {
+  padding-top: 1.5rem;
+}
+
+body > footer {
+  margin-top: 4rem;
+  padding: 2rem 1rem 1.5rem 1rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+/* Format headers */
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.6rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+
+h4 {
+  font-size: 1.44rem;
+}
+
+h5 {
+  font-size: 1.15rem;
+}
+
+h6 {
+  font-size: 0.96rem;
+}
+
+/* Prevent long strings from overflowing container */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* Fix line height when title wraps */
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+/* Reduce header size on mobile */
+@media only screen and (max-width: 720px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2.1rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Format links & buttons */
+a,
+a:visited {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button,
+[role="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+label[type="button"] {
+  border: none;
+  border-radius: var(--standard-border-radius);
+  background-color: var(--accent);
+  font-size: 1rem;
+  color: var(--bg);
+  padding: 0.7rem 0.9rem;
+  margin: 0.5rem 0;
+
+  /* Ensure buttons use correct font */
+  font-family: inherit;
+}
+
+button[disabled],
+[role="button"][aria-disabled="true"],
+input[type="submit"][disabled],
+input[type="reset"][disabled],
+input[type="button"][disabled],
+input[type="checkbox"][disabled],
+input[type="radio"][disabled],
+select[disabled] {
+  cursor: not-allowed;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled,
+button[disabled] {
+  cursor: not-allowed;
+  background-color: var(--disabled);
+  color: var(--text-light)
+}
+
+input[type="range"] {
+  padding: 0;
+}
+
+/* Set the cursor to '?' on an abbreviation and style the abbreviation to show that there is more information underneath */
+abbr[title] {
+  cursor: help;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+}
+
+button:enabled:hover,
+[role="button"]:not([aria-disabled="true"]):hover,
+input[type="submit"]:enabled:hover,
+input[type="reset"]:enabled:hover,
+input[type="button"]:enabled:hover,
+label[type="button"]:hover {
+  filter: brightness(1.4);
+  cursor: pointer;
+}
+
+button:focus-visible:where(:enabled, [role="button"]:not([aria-disabled="true"])),
+input:enabled:focus-visible:where(
+  [type="submit"],
+  [type="reset"],
+  [type="button"]
+) {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Format navigation */
+header > nav {
+  font-size: 1rem;
+  line-height: 2;
+  padding: 1rem 0 0 0;
+}
+
+/* Use flexbox to allow items to wrap, as needed */
+header > nav ul,
+header > nav ol {
+  align-content: space-around;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* List items are inline elements, make them behave more like blocks */
+header > nav ul li,
+header > nav ol li {
+  display: inline-block;
+}
+
+header > nav a,
+header > nav a:visited {
+  margin: 0 0.5rem 1rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--standard-border-radius);
+  color: var(--text);
+  display: inline-block;
+  padding: 0.1rem 1rem;
+  text-decoration: none;
+}
+
+header > nav a:hover,
+header > nav a.current {
+  border-color: var(--accent);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+/* Reduce nav side on mobile */
+@media only screen and (max-width: 720px) {
+  header > nav a {
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    line-height: 1;
+  }
+}
+
+/* Consolidate box styling */
+aside, details, pre, progress {
+  background-color: var(--accent-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--standard-border-radius);
+  margin-bottom: 1rem;
+}
+
+aside {
+  font-size: 1rem;
+  width: 30%;
+  padding: 0 15px;
+  margin-inline-start: 15px;
+  float: right;
+}
+*[dir="rtl"] aside {
+  float: left;
+}
+
+/* Make aside full-width on mobile */
+@media only screen and (max-width: 720px) {
+  aside {
+    width: 100%;
+    float: none;
+    margin-inline-start: 0;
+  }
+}
+
+article, fieldset, dialog {
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: var(--standard-border-radius);
+  margin-bottom: 1rem;
+}
+
+article h2:first-child,
+section h2:first-child {
+  margin-top: 1rem;
+}
+
+section {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 1rem;
+  margin: 3rem 0;
+}
+
+/* Don't double separators when chaining sections */
+section + section,
+section:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+section:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+details {
+  padding: 0.7rem 1rem;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.7rem 1rem;
+  margin: -0.7rem -1rem;
+  word-break: break-all;
+}
+
+details[open] > summary + * {
+  margin-top: 0;
+}
+
+details[open] > summary {
+  margin-bottom: 0.5rem;
+}
+
+details[open] > :last-child {
+  margin-bottom: 0;
+}
+
+/* Format tables */
+table {
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+td,
+th {
+  border: 1px solid var(--border);
+  text-align: start;
+  padding: 0.5rem;
+}
+
+th {
+  background-color: var(--accent-bg);
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  /* Set every other cell slightly darker. Improves readability. */
+  background-color: var(--accent-bg);
+}
+
+table caption {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Format forms */
+textarea,
+select,
+input {
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--standard-border-radius);
+  box-shadow: none;
+  max-width: 100%;
+  display: inline-block;
+}
+label {
+  display: block;
+}
+textarea:not([cols]) {
+  width: 100%;
+}
+
+/* Add arrow to drop-down */
+select:not([multiple]) {
+  background-image: linear-gradient(45deg, transparent 49%, var(--text) 51%),
+    linear-gradient(135deg, var(--text) 51%, transparent 49%);
+  background-position: calc(100% - 15px), calc(100% - 10px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-inline-end: 25px;
+}
+*[dir="rtl"] select:not([multiple]) {
+  background-position: 10px, 15px;
+}
+
+/* checkbox and radio button style */
+input[type="checkbox"],
+/* input[type="radio"] {
+  vertical-align: middle;
   position: relative;
   width: min-content;
 } */
-    input[type="checkbox"]+label,
-    /* input[type="radio"] + label {
+
+input[type="checkbox"] + label,
+/* input[type="radio"] + label {
   display: inline-block;
 } */
-    /* input[type="radio"] {
+
+/* input[type="radio"] {
   border-radius: 100%;
 } */
-    input[type="checkbox"]:checked,
-    /* input[type="radio"]:checked {
+
+input[type="checkbox"]:checked,
+/* input[type="radio"]:checked {
   background-color: var(--accent);
 } */
-    input[type="radio"] {
+input[type="radio"] {
       display: none;
-      /* 隐藏原始的 radio 按钮 */
     }
-
-    label.radio-label {
+label.radio-label {
       display: inline-block;
       padding: 3px 10px;
       border-radius: 11px;
@@ -507,581 +504,590 @@ const html = `
       /* border: 10px solid transparent; */
     }
 
-    input[type="radio"]:checked+label.radio-label {
-      background-color: var(--accent);
-      color: var(--bg);
-      /* border-color: var(--accent); */
-    }
+input[type="radio"]:checked+label.radio-label {
+    background-color: var(--accent);
+    color: var(--bg);
+    /* border-color: var(--accent); */
+}
 
+input[type="checkbox"]:checked::after {
+  /* Creates a rectangle with colored right and bottom borders which is rotated to look like a check mark */
+  content: " ";
+  width: 0.18em;
+  height: 0.32em;
+  border-radius: 0;
+  position: absolute;
+  top: 0.05em;
+  left: 0.17em;
+  background-color: transparent;
+  border-right: solid var(--bg) 0.08em;
+  border-bottom: solid var(--bg) 0.08em;
+  font-size: 1.8em;
+  transform: rotate(45deg);
+}
+input[type="radio"]:checked::after {
+  /* creates a colored circle for the checked radio button  */
+  content: " ";
+  width: 0.25em;
+  height: 0.25em;
+  border-radius: 100%;
+  position: absolute;
+  top: 0.125em;
+  background-color: var(--bg);
+  left: 0.125em;
+  font-size: 32px;
+}
 
-    input[type="checkbox"]:checked::after {
-      content: " ";
-      width: 0.18em;
-      height: 0.32em;
-      border-radius: 0;
-      position: absolute;
-      top: 0.05em;
-      left: 0.17em;
-      background-color: transparent;
-      border-right: solid var(--bg) 0.08em;
-      border-bottom: solid var(--bg) 0.08em;
-      font-size: 1.8em;
-      transform: rotate(45deg);
-    }
+/* Makes input fields wider on smaller screens */
+@media only screen and (max-width: 720px) {
+  textarea,
+  select,
+  input {
+    width: 100%;
+  }
+}
 
-    input[type="radio"]:checked::after {
-      content: " ";
-      width: 0.25em;
-      height: 0.25em;
-      border-radius: 100%;
-      position: absolute;
-      top: 0.125em;
-      background-color: var(--bg);
-      left: 0.125em;
-      font-size: 32px;
-    }
+/* Set a height for color input */
+input[type="color"] {
+  height: 2.5rem;
+  padding:  0.2rem;
+}
 
-    @media only screen and (max-width: 720px) {
+/* do not show border around file selector button */
+input[type="file"] {
+  border: 0;
+}
 
-      input,
-      select,
-      textarea {
-        width: 100%;
-      }
-    }
+/* Misc body elements */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 1rem auto;
+}
 
-    textarea {
-      height: 8em;
-    }
+mark {
+  padding: 2px 5px;
+  border-radius: var(--standard-border-radius);
+  background-color: var(--marked);
+  color: black;
+}
 
-    input[type="color"] {
-      height: 2.5rem;
-      padding: 0.2rem;
-    }
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--standard-border-radius);
+}
 
-    input[type="file"] {
-      border: 0;
-    }
+figure {
+  margin: 0;
+  display: block;
+  overflow-x: auto;
+}
 
-    hr {
-      border: none;
-      height: 1px;
-      background: var(--border);
-      margin: 1rem auto;
-    }
+figcaption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
 
-    mark {
-      padding: 2px 5px;
-      border-radius: var(--standard-border-radius);
-      background-color: var(--marked);
-      color: #000;
-    }
+blockquote {
+  margin-inline-start: 2rem;
+  margin-inline-end: 0;
+  margin-block: 2rem;
+  padding: 0.4rem 0.8rem;
+  border-inline-start: 0.35rem solid var(--accent);
+  color: var(--text-light);
+  font-style: italic;
+}
 
-    img,
-    video {
-      max-width: 100%;
-      height: auto;
-      border-radius: var(--standard-border-radius);
-    }
+cite {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-style: normal;
+}
 
-    figure {
-      margin: 0;
-      display: block;
-      overflow-x: auto;
-    }
+dt {
+    color: var(--text-light);
+}
 
-    figcaption {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-light);
-      margin-bottom: 1rem;
-    }
+/* Use mono font for code elements */
+code,
+pre,
+pre span,
+kbd,
+samp {
+  font-family: var(--mono-font);
+  color: var(--code);
+}
 
-    blockquote {
-      margin-inline-start: 2rem;
-      margin-inline-end: 0;
-      margin-block: 2rem;
-      padding: 0.4rem 0.8rem;
-      border-inline-start: 0.35rem solid var(--accent);
-      color: var(--text-light);
-      font-style: italic;
-    }
+kbd {
+  color: var(--preformatted);
+  border: 1px solid var(--preformatted);
+  border-bottom: 3px solid var(--preformatted);
+  border-radius: var(--standard-border-radius);
+  padding: 0.1rem 0.4rem;
+}
 
-    cite {
-      font-size: 0.9rem;
-      color: var(--text-light);
-      font-style: normal;
-    }
+pre {
+  padding: 1rem 1.4rem;
+  max-width: 100%;
+  overflow: auto;
+  color: var(--preformatted);
+}
 
-    dt {
-      color: var(--text-light);
-    }
+/* Fix embedded code within pre */
+pre code {
+  color: var(--preformatted);
+  background: none;
+  margin: 0;
+  padding: 0;
+}
 
-    code,
-    kbd,
-    pre,
-    pre span,
-    samp {
-      font-family: var(--mono-font);
-      color: var(--code);
-    }
+/* Progress bars */
+/* Declarations are repeated because you */
+/* cannot combine vendor-specific selectors */
+progress {
+  width: 100%;
+}
 
-    kbd {
-      color: var(--preformatted);
-      border: 1px solid var(--preformatted);
-      border-bottom: 3px solid var(--preformatted);
-      border-radius: var(--standard-border-radius);
-      padding: 0.1rem 0.4rem;
-    }
+progress:indeterminate {
+  background-color: var(--accent-bg);
+}
 
-    pre {
-      padding: 1rem 1.4rem;
-      max-width: 100%;
-      overflow: auto;
-      color: var(--preformatted);
-    }
+progress::-webkit-progress-bar {
+  border-radius: var(--standard-border-radius);
+  background-color: var(--accent-bg);
+}
 
-    pre code {
-      color: var(--preformatted);
-      background: 0 0;
-      margin: 0;
-      padding: 0;
-    }
+progress::-webkit-progress-value {
+  border-radius: var(--standard-border-radius);
+  background-color: var(--accent);
+}
 
-    progress {
-      width: 100%;
-    }
+progress::-moz-progress-bar {
+  border-radius: var(--standard-border-radius);
+  background-color: var(--accent);
+  transition-property: width;
+  transition-duration: 0.3s;
+}
 
-    progress:indeterminate {
-      background-color: var(--accent-bg);
-    }
+progress:indeterminate::-moz-progress-bar {
+  background-color: var(--accent-bg);
+}
 
-    progress::-webkit-progress-bar {
-      border-radius: var(--standard-border-radius);
-      background-color: var(--accent-bg);
-    }
+dialog {
+  max-width: 40rem;
+  margin: auto;
+}
 
-    progress::-webkit-progress-value {
-      border-radius: var(--standard-border-radius);
-      background-color: var(--accent);
-    }
+dialog::backdrop {
+  background-color: var(--bg);
+  opacity: 0.8;
+}
 
-    progress::-moz-progress-bar {
-      border-radius: var(--standard-border-radius);
-      background-color: var(--accent);
-      transition-property: width;
-      transition-duration: 0.3s;
-    }
+@media only screen and (max-width: 720px) {
+  dialog {
+    max-width: 100%;
+    margin: auto 1em;
+  }
+}
 
-    progress:indeterminate::-moz-progress-bar {
-      background-color: var(--accent-bg);
-    }
+/* Classes for buttons and notices */
+.button,
+.button:visited {
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  background: var(--accent);
+  font-size: 1rem;
+  color: var(--bg);
+  padding: 0.7rem 0.9rem;
+  margin: 0.5rem 0;
+}
 
-    dialog {
-      max-width: 40rem;
-      margin: auto;
-    }
+.button:hover,
+.button:focus {
+  filter: brightness(1.4);
+  cursor: pointer;
+}
 
-    dialog::backdrop {
-      background-color: var(--bg);
-      opacity: 0.8;
-    }
+.notice {
+  background: var(--accent-bg);
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
 
-    @media only screen and (max-width: 720px) {
-      dialog {
-        max-width: 100%;
-        margin: auto 1em;
-      }
-    }
-
-    .button,
-    .button:visited {
-      display: inline-block;
-      text-decoration: none;
-      border: none;
-      border-radius: 5px;
-      background: var(--accent);
-      font-size: 1rem;
-      color: var(--bg);
-      padding: 0.7rem 0.9rem;
-      margin: 0.5rem 0;
-    }
-
-    .button:focus,
-    .button:hover {
-      filter: brightness(1.4);
-      cursor: pointer;
-    }
-
-    .notice {
-      background: var(--accent-bg);
-      border: 2px solid var(--border);
-      border-radius: 5px;
-      padding: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .flex-container {
+.flex-container {
       display: flex;
-    }
+}
 
-    .flex-container>div {
-      margin-right: 12%;
-      font-size: 0.95rem;
-    }
-  </style>
+.flex-container>div {
+    margin-right: 12%;
+    font-size: 0.95rem;
+}
 
-  <div id="app">
-    <a href="https://github.com/Script-Hub-Org/Script-Hub">
-      <h1 style="margin-bottom: 0;">Script Hub</h1>
-    </a>
-    <p>重写 & 规则集转换</p>
-    <div>
-      <code>来源: </code>
-      <textarea id="src" v-model="src" placeholder=""></textarea>
-    </div>
+textarea {
+      height: 6em;
+}
 
+.parent-container {
+  display: flex;
+  /* justify-content: center; */
+  margin-left: 10px;
+}
+
+
+</style>
+  </head>
+  
+  <body style="margin-bottom: 160px;">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+    <div id="app">
+
+      <a href="https://github.com/Script-Hub-Org/Script-Hub"><h1 style="margin-bottom: 0;">Script Hub</h1></a>
+      <p>重写 & 规则集转换</p>
+
+      <div>
+        <code>来源: </code>
+        <textarea id="src" v-model="src" placeholder=""></textarea>
+      </div>
+      
     <div class="flex-container">
       <div>
-        <code>&nbsp来源类型: </code>
+        <code>&nbsp;来源类型: </code>
         <div v-for="item in types">
-          <input type="radio" :id="'type-' + item.value" :value="item.value" v-model="type" />
-          <label :for="'type-' + item.value" class="radio-label">{{item.label}}</label>
+            <input type="radio" :id="'type-' + item.value" :value="item.value" v-model="type" />
+            <label :for="'type-' + item.value" class="radio-label">{{item.label}}</label>
         </div>
       </div>
 
       <div>
-        <code>&nbsp目标类型: </code>
+        <code>&nbsp;目标类型: </code>
         <div v-for="item in targets">
-          <input type="radio" :id="'target-' + item.value" :value="item.value" v-model="target" />
-          <label :for="'target-' + item.value" class="radio-label">{{item.label}}</label>
+            <input type="radio" :id="'target-' + item.value" :value="item.value" v-model="target" />
+            <label :for="'target-' + item.value" class="radio-label">{{item.label}}</label>
         </div>
       </div>
     </div>
     <br>
 
-    <!-- position: fixed;  -->
-    <div
-      style="padding: 1rem; bottom: 1rem; margin-right: 1rem; background-color: var(--bg); border: 3px solid var(--border); border-radius: var(--standard-border-radius);">
-      <a v-if="result" :href="result" target="_blank">打开链接</a>&nbsp;
-      <a v-if="result && target === 'shadowrocket-module' "
-        :href=" 'https://api.boxjs.app/shadowrocket/install?module=' + encodeURIComponent(result) "
-        target="_blank">一键导入(Shadowrocket)</a>&nbsp;
-      <a v-if="result && target === 'loon-plugin' "
-        :href=" 'https://www.nsloon.com/openloon/import?plugin=' + encodeURIComponent(result) "
-        target="_blank">一键导入(Loon)</a>
-      <textarea id="result" :value="result" placeholder="结果"></textarea>
-
-      <button v-if="copyInfo">{{copyInfo}}</button>
-      <button v-else @click="copy">全选{{isHttps ? "&复制" : ""}}</button>
-      <!-- <small v-if="!isHttps"> https://script.hub 可复制</small> -->
-      &nbsp;
-      <button v-if="resetInfo">{{resetInfo}}</button>
-      <button v-else @click="reset">重置</button>
-    </div>
-    <br>
-
-
-
-    <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
-      <summary>名称 简介</summary>
-      <span>名字+简介 ，名字和简介以"+"相连，可缺省名字或简介</span>
-      <textarea id="n" v-model="n" placeholder=""></textarea>
-    </details>
-
-    <details>
-      <summary>文件名(避免重名, 默认从来源取)</summary>
-      <textarea id="filename" v-model="filename" placeholder=""></textarea>
-    </details>
-
-    <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
-      <summary>重写相关</summary>
-      <details>
-        <summary>保留重写</summary>
-        <span>根据关键词保留重写(即去掉注释符#) 多关键词以"+"分隔</span>
-        <textarea id="y" v-model="y" placeholder=""></textarea>
-      </details>
-      <details>
-        <summary>排除重写</summary>
-        <span>根据关键词排除重写(即添加注释符#) 多关键词以"+"分隔</span>
-        <textarea id="x" v-model="x" placeholder=""></textarea>
-      </details>
-      <div>
-        <input type="checkbox" id="del" v-model="del" />
-        <label for="del">从转换结果中剔除被注释的重写</label>
-      </div>
-    </details>
-
-    <details v-if="!target || target === 'rule-set'">
-      <summary>规则相关</summary>
-      <details>
-        <summary>保留规则</summary>
-        <span>根据关键词保留规则(即去掉注释符#) 多关键词以"+"分隔</span>
-        <textarea id="y" v-model="y" placeholder=""></textarea>
-      </details>
-      <details>
-        <summary>排除规则</summary>
-        <span>根据关键词排除规则(即添加注释符#) 多关键词以"+"分隔</span>
-        <textarea id="x" v-model="x" placeholder=""></textarea>
-      </details>
-    </details>
-
-
-
-
-
-    <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
-      <summary>修改 MITM 主机名</summary>
-      <details>
-        <summary>添加 MITM 主机名</summary>
-        <span>添加 MITM 主机名 多主机名以","分隔</span>
-        <textarea id="hnadd" v-model="hnadd" placeholder=""></textarea>
-      </details>
-
-      <details>
-        <summary>删除 MITM 主机名</summary>
-        <span>从已有MITM主机名中删除主机名 多主机名以","分隔(需要传入完整主机名)</span>
-        <textarea id="hndel" v-model="hndel" placeholder=""></textarea>
-      </details>
-    </details>
-
-
-    <details v-if="!target || type === 'qx-rewrite'">
-      <summary>启用脚本转换(仅在转换 QX 资源时可用)</summary>
-      <details>
-        <summary>启用脚本转换 1(仅在转换 QX 资源时可用)</summary>
-        <span>根据关键词为脚本启用脚本转换(多关键词以"+"分隔，主要用途 将使用了QX独有api的脚本转换为通用脚本，谨慎开启，大部分脚本本身就通用，无差别启用，只会徒增功耗)</span>
-        <textarea id="jsc" v-model="jsc" placeholder=""></textarea>
-        <div>
-          <input type="checkbox" id="jsc_all" v-model="jsc_all" />
-          <label for="jsc_all">全部转换</label>
+    <!-- position: fixed; -->
+    <div style="padding: 1rem;  bottom: 0rem; margin-right: 1rem; background-color: var(--bg); border: 1px solid var(--border); border-radius: var(--standard-border-radius);">
+        <a v-if="result" :href="result" target="_blank" style="margin: 0 0.5rem 0 0">打开链接</a>
+        <a v-if="result && target === 'shadowrocket-module' " :href=" 'https://api.boxjs.app/shadowrocket/install?module=' + encodeURIComponent(result) " target="_blank" style="margin: 0 0.5rem 0 0">一键导入(Shadowrocket)</a>
+        <a v-if="result && target === 'loon-plugin' " :href=" 'https://www.nsloon.com/openloon/import?plugin=' + encodeURIComponent(result) " target="_blank" style="margin: 0 0.5rem 0 0">一键导入(Loon)</a>
+        <textarea id="result" :value="result" placeholder="结果"></textarea>
+        
+        <button v-if="copyInfo">{{copyInfo}}</button>
+        <div class="parent-container">
+            <button v-else @click="copy">全选{{isHttps ? "&复制" : ""}}</button>
+            <!-- <small v-if="!isHttps"> https://script.hub 可复制</small> -->
+            &nbsp;&nbsp;
+            <button v-if="resetInfo">{{resetInfo}}</button>
+            <button v-else @click="reset">重置</button>
         </div>
+      </div>
+      <br>
+
+      <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
+        <summary>名称 简介</summary>
+        <span>名字+简介 ，名字和简介以"+"相连，可缺省名字或简介</span>
+        <textarea id="n" v-model="n" placeholder=""></textarea>
+      </details>
+
+      <details>
+        <summary>文件名(避免重名, 默认从来源取)</summary>
+        <textarea id="filename" v-model="filename" placeholder=""></textarea>
       </details>
 
       <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
-        <summary>启用脚本转换 2(仅在转换 QX 资源时可用)</summary>
-        <span>根据关键词为脚本启用脚本转换(与 <code>启用脚本转换 1</code> 的区别: 总是会在$done(body)里包一个response)</span>
-        <textarea id="jsc2" v-model="jsc2" placeholder=""></textarea>
+        <summary>重写相关</summary>
+        <details>
+          <summary>保留重写</summary>
+          <span>根据关键词保留重写(即去掉注释符#) 多关键词以"+"分隔</span>
+          <textarea id="y" v-model="y" placeholder=""></textarea>
+        </details>
+        <details>
+          <summary>排除重写</summary>
+          <span>根据关键词排除重写(即添加注释符#) 多关键词以"+"分隔</span>
+          <textarea id="x" v-model="x" placeholder=""></textarea>
+        </details>
         <div>
-          <input type="checkbox" id="jsc2_all" v-model="jsc2_all" />
-          <label for="jsc2_all">全部转换</label>
+          <input type="checkbox" id="del" v-model="del" />
+          <label for="del">从转换结果中剔除被注释的重写</label>
         </div>
       </details>
-    </details>
 
-
-    <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
-      <summary>修改定时任务</summary>
-      <details>
-        <summary>修改定时任务(cron)</summary>
-        <span>根据关键词锁定cron脚本配合参数cronexp= 修改定时任务的cron表达式 多关键词用"+"分隔，cron=传入了几项，cronexp=也必须对应传入几项。
-          cron表达式中空格可用"."或"%20"替代</span>
-        <textarea id="cron" v-model="cron" placeholder=""></textarea>
+      <details v-if="!target || target === 'rule-set'">
+        <summary>规则相关</summary>
+        <details>
+          <summary>保留规则</summary>
+          <span>根据关键词保留规则(即去掉注释符#) 多关键词以"+"分隔</span>
+          <textarea id="y" v-model="y" placeholder=""></textarea>
+        </details>
+        <details>
+          <summary>排除规则</summary>
+          <span>根据关键词排除规则(即添加注释符#) 多关键词以"+"分隔</span>
+          <textarea id="x" v-model="x" placeholder=""></textarea>
+        </details>
       </details>
-      <details>
-        <summary>修改定时任务(cronexp)</summary>
-        <span>见 cron= 参数说明</span>
-        <textarea id="cronexp" v-model="cronexp" placeholder=""></textarea>
-      </details>
-    </details>
 
 
-    <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
-      <summary>修改参数</summary>
-      <details>
-        <summary>修改参数(arg)</summary>
-        <span>arg= 根据关键词锁定脚本配合参数argv= 修改argument=的值 多关键词用"+"分隔，arg=传入了几项，argv=也必须对应传入几项。
-          argument中的"&"必须用"t;amp;"替代，"+"必须用"t;add;"替代。</span>
-        <textarea id="arg" v-model="arg" placeholder=""></textarea>
-      </details>
-      <details>
-        <summary>修改参数(argv)</summary>
-        <span>见 arg= 参数说明</span>
-        <textarea id="argv" v-model="argv" placeholder=""></textarea>
-      </details>
-    </details>
 
-    <details v-if="!target || target === 'stash-stoverride'">
-      <summary>Stash Tiles 面板相关</summary>
-      <details>
-        <summary>根据关键词锁定 Surge 的 Panel 脚本(Stash 专用参数)</summary>
-        <span>tiles= Stash专用参数，根据关键词锁定Surge的panel脚本，配合tcolor= 参数修改转换成tiles后的背景颜色，HEX码中的"#"必须用"@"替代</span>
-        <textarea id="tiles" v-model="tiles" placeholder=""></textarea>
-      </details>
-      <details>
-        <summary>Tiles 颜色(Stash 专用参数)</summary>
-        <span>tcolor= 见 tiles 参数说明 请传入8位HEX颜色代码</span>
-        <textarea id="tcolor" v-model="tcolor" placeholder=""></textarea>
-      </details>
-    </details>
 
-    <details v-if="!target || target !== 'surge-script' ">
-      <summary>缓存有效期</summary>
-      <span>cachexp=
-        设置缓存有效期，单位：小时，不传入此参数默认有效期一小时。也可以用boxjs修改"Parser_cache_exp"的值来修改全局有效期。单位：小时，支持小数，设置为0.0001即立即过期。</span>
-      <textarea id="cachexp" v-model="cachexp" placeholder=""></textarea>
-    </details>
 
-    <div v-if="!target || target === 'rule-set' ">
-      <input type="checkbox" id="nore" v-model="nore" />
-      <label for="nore">IP 规则开启不解析域名(即 no-resolve)</label>
+      <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
+        <summary>修改 MITM 主机名</summary>
+        <details>
+          <summary>添加 MITM 主机名</summary>
+          <span>添加 MITM 主机名 多主机名以","分隔</span>
+          <textarea id="hnadd" v-model="hnadd" placeholder=""></textarea>
+        </details>
+
+        <details>
+          <summary>删除 MITM 主机名</summary>
+          <span>从已有MITM主机名中删除主机名 多主机名以","分隔(需要传入完整主机名)</span>
+          <textarea id="hndel" v-model="hndel" placeholder=""></textarea>
+        </details>
+      </details>
+
+
+      <details v-if="!target || type === 'qx-rewrite'">
+        <summary>启用脚本转换(仅在转换 QX 资源时可用)</summary>
+        <details>
+          <summary>启用脚本转换 1(仅在转换 QX 资源时可用)</summary>
+          <span>根据关键词为脚本启用脚本转换(多关键词以"+"分隔，主要用途 将使用了QX独有api的脚本转换为通用脚本，谨慎开启，大部分脚本本身就通用，无差别启用，只会徒增功耗)</span>
+          <textarea id="jsc" v-model="jsc" placeholder=""></textarea>
+          <div>
+            <input type="checkbox" id="jsc_all" v-model="jsc_all" />
+            <label for="jsc_all">全部转换</label>
+          </div>
+        </details>
+
+        <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
+          <summary>启用脚本转换 2(仅在转换 QX 资源时可用)</summary>
+          <span>根据关键词为脚本启用脚本转换(与 <code>启用脚本转换 1</code> 的区别: 总是会在$done(body)里包一个response)</span>
+          <textarea id="jsc2" v-model="jsc2" placeholder=""></textarea>
+          <div>
+            <input type="checkbox" id="jsc2_all" v-model="jsc2_all" />
+            <label for="jsc2_all">全部转换</label>
+          </div>
+        </details>
+      </details>
+
+
+      <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
+        <summary>修改定时任务</summary>
+        <details>
+          <summary>修改定时任务(cron)</summary>
+          <span>根据关键词锁定cron脚本配合参数cronexp= 修改定时任务的cron表达式 多关键词用"+"分隔，cron=传入了几项，cronexp=也必须对应传入几项。 cron表达式中空格可用"."或"%20"替代</span>
+          <textarea id="cron" v-model="cron" placeholder=""></textarea>
+        </details>
+        <details>
+          <summary>修改定时任务(cronexp)</summary>
+          <span>见 cron= 参数说明</span>
+          <textarea id="cronexp" v-model="cronexp" placeholder=""></textarea>
+        </details>
+      </details>
+
+
+      <details v-if="!target || (target !== 'rule-set' && target !== 'surge-script' )">
+        <summary>修改参数</summary>
+        <details>
+          <summary>修改参数(arg)</summary>
+          <span>arg= 根据关键词锁定脚本配合参数argv= 修改argument=的值 多关键词用"+"分隔，arg=传入了几项，argv=也必须对应传入几项。 argument中的"&"必须用"t;amp;"替代，"+"必须用"t;add;"替代。</span>
+          <textarea id="arg" v-model="arg" placeholder=""></textarea>
+        </details>
+        <details>
+          <summary>修改参数(argv)</summary>
+          <span>见 arg= 参数说明</span>
+          <textarea id="argv" v-model="argv" placeholder=""></textarea>
+        </details>
+      </details>
+
+      <details v-if="!target || target === 'stash-stoverride'">
+        <summary>Stash Tiles 面板相关</summary>
+        <details>
+          <summary>根据关键词锁定 Surge 的 Panel 脚本(Stash 专用参数)</summary>
+          <span>tiles= Stash专用参数，根据关键词锁定Surge的panel脚本，配合tcolor= 参数修改转换成tiles后的背景颜色，HEX码中的"#"必须用"@"替代</span>
+          <textarea id="tiles" v-model="tiles" placeholder=""></textarea>
+        </details>
+        <details>
+          <summary>Tiles 颜色(Stash 专用参数)</summary>
+          <span>tcolor= 见 tiles 参数说明 请传入8位HEX颜色代码</span>
+          <textarea id="tcolor" v-model="tcolor" placeholder=""></textarea>
+        </details>
+      </details>
+
+      <details v-if="!target || target !== 'surge-script' ">
+        <summary>缓存有效期</summary>
+        <span>cachexp= 设置缓存有效期，单位：小时，不传入此参数默认有效期一小时。也可以用boxjs修改"Parser_cache_exp"的值来修改全局有效期。单位：小时，支持小数，设置为0.0001即立即过期。</span>
+        <textarea id="cachexp" v-model="cachexp" placeholder=""></textarea>
+      </details>
+
+      <div v-if="!target || target === 'rule-set' ">
+        <input type="checkbox" id="nore" v-model="nore" />
+        <label for="nore">IP 规则开启不解析域名(即 no-resolve)</label>
+      </div>
+
+      <div v-if="!target || target === 'surge-script' ">
+        <input type="checkbox" id="wrap_response" v-model="wrap_response" />
+        <label for="wrap_response">总是会在 $done(body) 里包一个 response</label>
+      </div>
+
+
     </div>
+    <footer>
+      <p>Made With &hearts; By <a href="https://github.com/Script-Hub-Org/Script-Hub">Script Hub</a></p>
+    </footer>
+    <script>
+      const { createApp, ref } = Vue
+  const init = {
+    baseUrl: location.protocol + '//script.hub',
+    types: [{value: 'qx-rewrite', label: 'QX 重写'}, {value: 'surge-module', label: 'Surge 模块'}, {value: 'loon-plugin', label: 'Loon 插件'}, {value: 'qx-script', label: 'QX 专属脚本'}, {value: 'rule-set', label: '规则集'}],
+    type: '',
+    targets: [{value: 'surge-module', label: 'Surge 模块', suffix: '.sgmodule'}, {value: 'stash-stoverride', label: 'Stash 覆写', suffix: '.stoverride'}, {value: 'shadowrocket-module', label: 'Shadowrocket 模块', suffix: '.sgmodule'}, {value: 'loon-plugin', label: 'Loon 插件', suffix: '.plugin'}, {value: 'surge-script', label: 'Surge 脚本(兼容)', suffix: '.js'}, {value: 'rule-set', label: '规则集', suffix: '.list' }],
+    target: '',
+    src: '',
+    n: '',
+    filename: '',
+    y: '',
+    x: '',
+    del: false,
+    hnadd: '',
+    hndel: '',
+    jsc: '',
+    jsc_all: '',
+    jsc2: '',
+    jsc2_all: '',
+    cron: '',
+    cronexp: '',
+    arg: '',
+    argv: '',
+    tiles: '',
+    tcolor: '',
+    cachexp: '',
+    copyInfo: '',
+    resetInfo: '',
+    nore: false,
+    wrap_response: false,
+    env: "${$.getEnv() || ''}"
+  }
+  
+  if (init.env === 'Surge') {
+    init.target = 'surge-module'
+  } else if (init.env === 'Loon') {
+    init.target = 'loon-plugin'
+  } else if (init.env === 'Stash') {
+    init.target = 'stash-stoverride'
+  } else if (init.env === 'Shadowrocket') {
+    init.target = 'shadowrocket-module'
+  }
 
-    <div v-if="!target || target === 'surge-script' ">
-      <input type="checkbox" id="wrap_response" v-model="wrap_response" />
-      <label for="wrap_response">总是会在 $done(body) 里包一个 response</label>
-    </div>
+  console.log("init", init)
 
-
-
-
-
-
-
-  </div>
-  <footer>
-    <p>Made With &hearts; By <a href="https://github.com/Script-Hub-Org/Script-Hub">Script Hub</a></p>
-  </footer>
-  <script type="module">
-    import { createApp } from 'vue'
-    const init = {
-      baseUrl: location.protocol + '//script.hub',
-      types: [{ value: 'qx-rewrite', label: 'QX 重写' }, { value: 'surge-module', label: 'Surge 模块' }, { value: 'loon-plugin', label: 'Loon 插件' }, { value: 'qx-script', label: 'QX 专属脚本' }, { value: 'rule-set', label: '规则集' }],
-      type: '',
-      targets: [{ value: 'surge-module', label: 'Surge 模块', suffix: '.sgmodule' }, { value: 'stash-stoverride', label: 'Stash 覆写', suffix: '.stoverride' }, { value: 'shadowrocket-module', label: 'Shadowrocket 模块', suffix: '.sgmodule' }, { value: 'loon-plugin', label: 'Loon 插件', suffix: '.plugin' }, { value: 'surge-script', label: 'Surge 脚本(兼容)', suffix: '.js' }, { value: 'rule-set', label: '规则集', suffix: '.list' }],
-      target: '',
-      src: '',
-      n: '',
-      filename: '',
-      y: '',
-      x: '',
-      del: false,
-      hnadd: '',
-      hndel: '',
-      jsc: '',
-      jsc_all: '',
-      jsc2: '',
-      jsc2_all: '',
-      cron: '',
-      cronexp: '',
-      arg: '',
-      argv: '',
-      tiles: '',
-      tcolor: '',
-      cachexp: '',
-      copyInfo: '',
-      resetInfo: '',
-      nore: false,
-      wrap_response: false,
-      env: "${$.getEnv() || ''}"
-    }
-
-    if (init.env === 'Surge') {
-      init.target = 'surge-module'
-    } else if (init.env === 'Loon') {
-      init.target = 'loon-plugin'
-    } else if (init.env === 'Stash') {
-      init.target = 'stash-stoverride'
-    } else if (init.env === 'Shadowrocket') {
-      init.target = 'shadowrocket-module'
-    }
-
-    console.log("init", init)
-
-    createApp({
-      data() {
-        return { ...init }
+  createApp({
+    data() {
+      return { ...init }
+    },
+    methods: {
+      reset(){
+        const initData = { ...init }
+        Object.keys(initData).map(key => {
+          if (key !== 'type' && key !== 'target') {
+            this[key] = initData[key]
+          }
+        })
+        // alert("✅ 已重置");
+        this.resetInfo = '✅'
+        setTimeout(() => {
+          this.resetInfo = ''
+        }, 1000)
       },
-      methods: {
-        reset() {
-          const initData = { ...init }
-          Object.keys(initData).map(key => {
-            if (key !== 'type' && key !== 'target') {
-              this[key] = initData[key]
-            }
-          })
-          // alert("✅ 已重置");
-          this.resetInfo = '✅'
-          setTimeout(() => {
-            this.resetInfo = ''
-          }, 1000)
-        },
-        copy() {
-          const copyText = document.getElementById("result");
+      copy(){
+        const copyText = document.getElementById("result");
 
-          copyText.select();
-          copyText.setSelectionRange(0, 99999); // For mobile devices
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
 
-          navigator.clipboard.writeText(copyText.value);
-          this.copyInfo = '✅'
-          setTimeout(() => {
-            this.copyInfo = ''
-          }, 1000)
-          // if (this.isHttps) {
-          //   alert("✅ 已复制");
-          // }
-
+        navigator.clipboard.writeText(copyText.value);
+        this.copyInfo = '✅'
+        setTimeout(() => {
+          this.copyInfo = ''
+        }, 1000)
+        // if (this.isHttps) {
+        //   alert("✅ 已复制");
+        // }
+      
+      }
+    },
+    watch: {
+      type(v) {
+        if(v === 'rule-set' && this.target !== 'rule-set'){
+          this.target='rule-set'
+        } else if(v === 'qx-script' && this.target !== 'surge-script'){
+          this.target='surge-script'
         }
       },
-      watch: {
-        type(v) {
-          if (v === 'rule-set' && this.target !== 'rule-set') {
-            this.target = 'rule-set'
-          } else if (v === 'qx-script' && this.target !== 'surge-script') {
-            this.target = 'surge-script'
-          }
-        },
-        target(v) {
-          if (v === 'rule-set' && this.type !== 'rule-set') {
-            this.type = 'rule-set'
-          } else if (v === 'surge-script' && this.type !== 'qx-script') {
-            this.type = 'qx-script'
-          }
-        }
-      },
-      computed: {
-        result: function () {
-          const fields = {}
-          if (this.jsc_all) {
-            fields.jsc = '.'
-          }
-          if (this.jsc2_all) {
-            fields.jsc2 = '.'
-          }
-          const _fields = ['n', 'type', 'target', 'x', 'y', 'hnadd', 'hndel', 'jsc', 'jsc2', 'cron', 'cronexp', 'arg', 'argv', 'tiles', 'tcolor', 'cachexp', 'del', 'nore', 'wrap_response']
-          _fields.forEach(field => {
-            if (this[field] !== '' && this[field] !== false) {
-              fields[field] = this[field]
-            }
-          })
-
-          const type = this.types.find(i => i.value === this.type)
-          const target = this.targets.find(i => i.value === this.target)
-          if (this.src && target && type) {
-            const suffix = target.suffix || ''
-            const filename = this.filename || this.src.substring(this.src.lastIndexOf('/') + 1).split('.')[0]
-            const pathType = this.target === 'surge-script' ? '/convert' : '/file'
-
-            return this.baseUrl + pathType + '/_start_/' + this.src + '/_end_/' + filename + suffix + '?' + Object.keys(fields).map(i => i + '=' + encodeURIComponent(fields[i])).join('&')
-
-            // let url = new URL(this.baseUrl + pathType + '/_start_/' + this.src + '/_end_/' + filename + suffix)
-
-            // Object.keys(fields).map(i => {
-            //  url.searchParams.append(i, fields[i])
-            // })
-            // return url.href
-          }
-
-          return ''
-
-        },
-        isHttps: function () {
-          return location.protocol === 'https:'
+      target(v) {
+        if(v === 'rule-set' && this.type !== 'rule-set'){
+          this.type='rule-set'
+        } else if(v === 'surge-script' && this.type !== 'qx-script'){
+          this.type='qx-script'
         }
       }
-    }).mount('#app')
-  </script>
-</body>
+  },
+    computed: {
+      result: function () {
+				const fields = {}
+        if (this.jsc_all) {
+          fields.jsc = '.'
+        }
+        if (this.jsc2_all) {
+          fields.jsc2 = '.'
+        }
+        const _fields = [ 'n', 'type', 'target', 'x', 'y', 'hnadd', 'hndel', 'jsc', 'jsc2', 'cron', 'cronexp', 'arg', 'argv', 'tiles', 'tcolor', 'cachexp', 'del', 'nore', 'wrap_response']
+        _fields.forEach(field => {
+         if (this[field]!==''&&this[field]!==false) {
+            fields[field] = this[field]
+          }
+        })
+
+        const type = this.types.find(i => i.value === this.type)
+        const target = this.targets.find(i => i.value === this.target)
+        if (this.src && target && type) {
+          const suffix = target.suffix || ''
+          const filename = this.filename || this.src.substring(this.src.lastIndexOf('/') + 1).split('.')[0]
+          const pathType = this.target === 'surge-script' ? '/convert' : '/file'
+
+          return this.baseUrl + pathType + '/_start_/' + this.src + '/_end_/' + filename + suffix + '?' + Object.keys(fields).map(i => i + '=' + encodeURIComponent(fields[i])).join('&')
+
+          // let url = new URL(this.baseUrl + pathType + '/_start_/' + this.src + '/_end_/' + filename + suffix)
+          
+          // Object.keys(fields).map(i => {
+          //  url.searchParams.append(i, fields[i])
+          // })
+          // return url.href
+        }
+
+        return ''
+        
+      },
+      isHttps: function () {
+        return location.protocol === 'https:'
+      }
+    }
+  }).mount('#app')
+</script>
+  </body>
 
 </html>
 `
