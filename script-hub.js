@@ -52,8 +52,8 @@ const html = `
       ::backdrop,
       :root {
         color-scheme: dark;
-        --bg: #232326;
-        --accent-bg: #34343a;
+        --bg: #1a1a1c;
+        --accent-bg: #333339;
         --text: #d3cdcd;
         --text-light: #ababab;
         --accent: #9093ce;
@@ -756,6 +756,7 @@ const html = `
         </div>
       </div>
     </div>
+    <br>
 
     <!-- position: fixed;  -->
     <div
