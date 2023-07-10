@@ -411,6 +411,7 @@ select:not([multiple]) {
 }
 input[type="checkbox"],
 input[type="radio"] {
+  margin-top: 12px;
   vertical-align: middle;
   position: relative;
   width: min-content;
