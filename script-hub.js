@@ -736,11 +736,11 @@ textarea {
       height: 6em;
 }
 
-.parent-container {
+/*.parent-container {
   display: flex;
-  /* justify-content: center; */
+   justify-content: center; 
   margin-left: 10px;
-}
+}*/
 
 
 </style>
@@ -787,13 +787,13 @@ textarea {
         <textarea id="result" :value="result" placeholder="结果"></textarea>
         
         <button v-if="copyInfo">{{copyInfo}}</button>
-        <div class="parent-container">
+       
             <button v-else @click="copy">全选{{isHttps ? "&复制" : ""}}</button>
             <!-- <small v-if="!isHttps"> https://script.hub 可复制</small> -->
             &nbsp;&nbsp;
             <button v-if="resetInfo">{{resetInfo}}</button>
             <button v-else @click="reset">重置</button>
-        </div>
+
       </div>
       <br>
 
