@@ -11,9 +11,8 @@ const html = `
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon.png" />
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon-dark.png">
     <!--  <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">-->
-    <link rel="stylesheet" href="https://raw.githubusercontent.com/Keywos/Script-Hub/main/assets/sub.css"/>
-    <!--  type="text/css" -->
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <!--  <link rel="stylesheet" type="text/css" href="./sub.css"/>  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Script Hub</title>
   </head>
 
@@ -25,6 +24,9 @@ const html = `
     }
   }
 </script>
+
+
+
     <div id="app">
 
       <a href="https://github.com/Script-Hub-Org/Script-Hub"><h1 style="margin-bottom: 0;">Script Hub</h1></a>
@@ -56,9 +58,9 @@ const html = `
 
       <!-- position: fixed;  -->
       <div style="padding: 1rem; bottom: 1rem; margin-right: 1rem; background-color: var(--bg); border: 3px solid var(--border); border-radius: var(--standard-border-radius);">
-        <a v-if="result" :href="result" target="_blank">打开链接</a>&nbsp;
-        <a v-if="result && target === 'shadowrocket-module' " :href=" 'https://api.boxjs.app/shadowrocket/install?module=' + encodeURIComponent(result) " target="_blank">一键导入(Shadowrocket)</a>&nbsp;
-        <a v-if="result && target === 'loon-plugin' " :href=" 'https://www.nsloon.com/openloon/import?plugin=' + encodeURIComponent(result) " target="_blank">一键导入(Loon)</a>
+        <a v-if="result" :href="result">打开链接</a>&nbsp;
+        <a v-if="result && target === 'shadowrocket-module' " :href=" 'https://api.boxjs.app/shadowrocket/install?module=' + encodeURIComponent(result) ">一键导入(Shadowrocket)</a>&nbsp;
+        <a v-if="result && target === 'loon-plugin' " :href=" 'https://www.nsloon.com/openloon/import?plugin=' + encodeURIComponent(result) ">一键导入(Loon)</a>
         <textarea id="result" :value="result" placeholder="结果"></textarea>
         
         <button v-if="copyInfo">{{copyInfo}}</button>
